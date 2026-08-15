@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Goals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome-card">
+    <div class="welcome-badge">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg>
+    </div>
+    <h1>Selamat Datang</h1>
+    <p>Masuk dengan akun kamu untuk melanjutkan ke My&nbsp;Goals</p>
+    <div class="welcome-input-wrap">
+      <input type="email" id="input-email" placeholder="Email..." autocomplete="username" />
+      <input type="password" id="input-password" placeholder="Password..." autocomplete="current-password" style="margin-top:10px;" />
+      <div class="form-error" id="login-error"></div>
+      <button id="btn-start">Masuk</button>
+    </div>
+    <div class="welcome-hint">Tekan Enter juga bisa, kok.</div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD SCREEN ============ -->
+<div class="screen" id="screen-dashboard">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"></path></svg>
+      </div>
+      <span class="brand-name">My Goals</span>
+    </div>
+    <div class="user-chip">
+      <div class="user-avatar" id="user-avatar">AA</div>
+      <span class="user-name" id="user-name-display">Nama</span>
+      <button class="btn-logout" id="btn-logout" title="Keluar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="dashboard-wrap">
+    <div class="quote-zone">
+      <div class="quote-eyebrow">Pengingat Hari Ini</div>
+      <div class="quote-text show" id="quote-text"></div>
+      <div class="quote-dots" id="quote-dots"></div>
+    </div>
+
+    <div class="cards-row">
+      <button class="goal-card" data-type="tasks">
+        <div class="goal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg>
+        </div>
+        <h3>Daftar Tugas</h3>
+        <div class="goal-sub">Hal-hal yang perlu dikerjakan</div>
+        <div class="goal-progress-track"><div class="goal-progress-fill" id="progress-tasks"></div></div>
+        <div class="goal-progress-meta"><span id="meta-tasks">0 dari 0 selesai</span><strong id="pct-tasks">0%</strong></div>
+      </button>
+
+      <button class="goal-card" data-type="goals">
+        <div class="goal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle></svg>
+        </div>
+        <h3>Hal yang Ingin Dicapai</h3>
+        <div class="goal-sub">Target dan pencapaian jangka panjang</div>
+        <div class="goal-progress-track"><div class="goal-progress-fill" id="progress-goals"></div></div>
+        <div class="goal-progress-meta"><span id="meta-goals">0 dari 0 selesai</span><strong id="pct-goals">0%</strong></div>
+      </button>
+
+      <button class="goal-card" data-type="skills">
+        <div class="goal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"></path><path d="M9 21h6"></path><path d="M10 17.5h4"></path></svg>
+        </div>
+        <h3>Hal yang Ingin Dikuasai</h3>
+        <div class="goal-sub">Skill dan kemampuan yang mau dipelajari</div>
+        <div class="goal-progress-track"><div class="goal-progress-fill" id="progress-skills"></div></div>
+        <div class="goal-progress-meta"><span id="meta-skills">0 dari 0 selesai</span><strong id="pct-skills">0%</strong></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DETAIL SCREEN ============ -->
+<div class="screen" id="screen-detail">
+  <div class="detail-wrap">
+    <div class="detail-top">
+      <button class="btn-back" id="btn-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+        Kembali
+      </button>
+    </div>
+    <div class="detail-header">
+      <h2 id="detail-title">Daftar Tugas</h2>
+      <p id="detail-subtitle">Ketik tugas baru lalu tekan Enter untuk menyimpannya</p>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+      <input type="text" id="item-input" placeholder="Cari atau ketik tugas baru..." autocomplete="off" />
+    </div>
+    <div class="item-list" id="item-list"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
