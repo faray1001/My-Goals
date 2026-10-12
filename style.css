@@ -312,3 +312,18 @@
   @media (prefers-reduced-motion:reduce){
     *{animation:none !important;transition:none !important;}
   }
+.custom-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #3b82f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: sans-serif;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.custom-button:hover {
+  background-color: #2563eb;
+}
