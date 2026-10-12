@@ -314,10 +314,8 @@
   }
 .custom-button {
   display: block;
-  padding: 12px 24px;
   background-color: #3b82f6;
   color: white;
-  text-decoration: none;
   border-radius: 12px;
   font-family: sans-serif;
   font-weight: bold;
