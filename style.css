@@ -318,10 +318,12 @@
   background-color: #3b82f6;
   color: white;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-family: sans-serif;
   font-weight: bold;
   transition: background 0.3s;
+  justify-content: center;
+  align-items: center;
 }
 
 .custom-button:hover {
